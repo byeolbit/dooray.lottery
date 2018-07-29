@@ -5,7 +5,7 @@ const initFields = (message) => {
   const fields = [];
 
   fields.push({
-      title: element.text,
+      title: 'pick me!',
       value: '0',
       short: true
   });
@@ -26,6 +26,8 @@ const initFields = (message) => {
     text: '',
     fields
   });
+
+  return message;
 }
 
 const addParticipate = (message, metion) => {
@@ -46,7 +48,7 @@ const participate = (data, getUserMention) => {
         participateMessage = message.attachments[1];
 
   if (!participateMessage.fields) {
-    initFields(message);
+    message = initFields(message);
   }
 
   if (participateMessage.fields[1].value.includes(userMention)) {
