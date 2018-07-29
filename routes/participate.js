@@ -1,4 +1,5 @@
-const messages = require('./messages');
+const {cloneDeep} = require('lodash'),
+      messages = require('./messages');
 
 const initFields = (message) => {
   const fields = [];
@@ -40,7 +41,7 @@ const removeParticipate = (message, mention) => {
 }
 
 const participate = (data, getUserMention) => {
-  const message = _.cloneDeep(data.originalMessage),
+  const message = cloneDeep(data.originalMessage),
         userMention = getUserMention(data)
         participateMessage = message.attachments[1];
 
