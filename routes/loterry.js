@@ -66,7 +66,7 @@ const lottery = (req, res) => {
     return res.status(200).send({
         responseType: 'inChannel',
         deleteOriginal: true,
-        text: messege.get('CREATE', getUserMention(body)),
+        text: messages.get('CREATE', getUserMention(body)),
         attachments
     });
   } else {
