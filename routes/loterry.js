@@ -8,12 +8,12 @@ const getUserMention = ({ userId, tenantId, tenant, user }) => {
   const userIdNum = userId || user.id;
   const tenantIdNum = tenantId || tenant.id;
 
-  return `(dooray://${tenantIdNum}/members/${userIdNum} "member") `;
+  return `(dooray://${tenantIdNum}/members/${userIdNum} "member"),`;
 }
 
 const getWinner = (fields) => {
   const picked = Math.random() * fields[2].value;
-  fields[0].value = fileds[1].value.split(' ')[picked];
+  fields[0].value = fields[1].value.split(',')[picked];
 
   return fields;
 }

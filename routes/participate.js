@@ -44,13 +44,14 @@ const removeParticipate = (message, mention) => {
 
 const participate = (data, getUserMention) => {
   const message = cloneDeep(data.originalMessage),
-        userMention = getUserMention(data)
-        participateMessage = message.attachments[1];
-
-  if (!participateMessage.fields) {
-    message = initFields(message);
+        userMention = getUserMention(data);
+        
+  if (!message.attachments[1].fields) {
+    initFields(message);
   }
-
+        
+  const participateMessage = message.attachments[1];
+  
   if (participateMessage.fields[1].value.includes(userMention)) {
     removeParticipate(participateMessage, userMention);
   } else {
