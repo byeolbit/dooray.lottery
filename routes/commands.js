@@ -9,7 +9,7 @@ const help = (res) => {
 }
 
 // 새로운 추첨 시작 다이얼로그를 생성하여 보내줍니다.
-const newLottery = (params, res) => {
+const newLottery = (req, res, params) => {
     return res.status(200).send({
         text: messages.get('CONFIRM'),
         attachments:[
@@ -44,7 +44,7 @@ const commands = (req, res) => {
     const params = req.body.text.split(messages.REGEXP);
     return params.length < MINIMUM_PARAMS_LENGTH || params[1].toLowerCase() === 'help'
         ? help(res)
-        : newLottery(params, res);
+        : newLottery(req, res, params);
 };
 
 module.exports = commands;
