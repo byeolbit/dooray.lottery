@@ -12,7 +12,7 @@ const getUserMention = ({ userId, tenantId, tenant, user }) => {
 }
 
 const getWinner = (fields) => {
-  const picked = Math.random() * fields[1].value;
+  const picked = Math.floor(Math.random() * fields[1].value);
   fields[0].value = fields[0].value.split(',')[picked];
   
   return fields;
