@@ -94,7 +94,6 @@ const lottery = (req, res) => {
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
       message.attachments[1].fields = getWinner(message.attachments[1].fields);
-      message.attachments[1].fields.pop();
       res.status(200).send(message);
       
       message.replaceOriginal = true;
