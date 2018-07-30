@@ -8,19 +8,17 @@ const getUserMention = ({ userId, tenantId, tenant, user }) => {
   const userIdNum = userId || user.id;
   const tenantIdNum = tenantId || tenant.id;
 
-  return `(dooray://${tenantIdNum}/members/${userIdNum} "member"),`;
+  return `(dooray://${tenantIdNum}/members/${userIdNum} "member")`;
 }
 
 const getWinner = (fields) => {
   const picked = Math.floor(Math.random() * fields[1].value);
-  fields[0].value = fields[0].value.split(',')[picked];
-  
-  return fields;
+  return fields[0].value.split(',')[picked.replace(/\)/gi, '),')];
 }
 
 const lottery = (req, res) => {
   const body = req.body,
-        [timestamp, masterMention] = body.callbackId.split('-');
+        [, masterMention] = body.callbackId.split('-');
   
   if (!masterMention) {
     // 추첨 취소
@@ -94,7 +92,6 @@ const lottery = (req, res) => {
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
       message.attachments[1].text = getWinner(message.attachments[1].fields);
-      message.attachments[1].fields = [];
       res.status(200).send(message);
       
       message.replaceOriginal = true;
