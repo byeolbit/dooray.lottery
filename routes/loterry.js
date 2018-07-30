@@ -101,6 +101,7 @@ const lottery = (req, res) => {
       
       message.replaceOriginal = true;
       message.channelId = body.channel.id;
+      message.attachments.pop();
       message.attachments.push({
         text: messages.get('RESULT_DOWN_BELOW')
       });
