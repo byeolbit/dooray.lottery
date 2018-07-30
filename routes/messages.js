@@ -10,8 +10,9 @@ const MSG = {
     START: 'Start',
     CANCEL: 'Cancel',
     CLOSE_BTN: 'Close the lottery (Show result)',
-    TOTAL: 'Total lottery',
+    TOTAL: 'Total participants',
     RESULT: 'Result',
+    WINNER: 'Winner',
     RESULT_DOWN_BELOW: 'You can see results down below.'
 };
 

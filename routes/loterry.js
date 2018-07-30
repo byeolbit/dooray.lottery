@@ -92,7 +92,7 @@ const lottery = (req, res) => {
     if (message.attachments[1] && message.attachments[1].fields) {
       message.replaceOriginal = false;
       message.text = messages.get('CLOSE', getUserMention(body));
-      message.attachments[1].title = messages.get('Winner');
+      message.attachments[1].title = messages.get('WINNER');
       message.attachments[1].fields = getWinner(message.attachments[1].fields);
       message.attachments[1].fields.pop();
       res.status(200).send(message);
