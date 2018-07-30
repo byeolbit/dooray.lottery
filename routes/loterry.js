@@ -13,7 +13,7 @@ const getUserMention = ({ userId, tenantId, tenant, user }) => {
 
 const getWinner = (fields) => {
   const picked = Math.floor(Math.random() * fields[1].value);
-  return fields[0].value.split(',')[picked.replace(/\)/gi, '),')];
+  return fields[0].value.replace(/\)/gi, '),').split(',')[picked];
 }
 
 const lottery = (req, res) => {
