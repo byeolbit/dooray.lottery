@@ -12,9 +12,9 @@ const getUserMention = ({ userId, tenantId, tenant, user }) => {
 }
 
 const getWinner = (fields) => {
-  const picked = Math.random() * fields[2].value;
-  fields[0].value = fields[1].value.split(',')[picked];
-
+  const picked = Math.random() * fields[1].value;
+  fields[0].value = fields[0].value.split(',')[picked];
+  
   return fields;
 }
 
@@ -92,15 +92,16 @@ const lottery = (req, res) => {
     if (message.attachments[1] && message.attachments[1].fields) {
       message.replaceOriginal = false;
       message.text = messages.get('CLOSE', getUserMention(body));
-      message.attachments[1].title = messages.get('RESULT');
+      message.attachments[1].title = messages.get('Winner');
       message.attachments[1].fields = getWinner(message.attachments[1].fields);
+      message.attachments[1].fields.pop();
       res.status(200).send(message);
       
       message.replaceOriginal = true;
       message.channelId = body.channel.id;
       message.attachments.pop();
       message.attachments.push({
-          text: messages.get('RESULT_DOWN_BELOW')
+        text: messages.get('RESULT_DOWN_BELOW')
       });
       return Api.webhook(body.responseUrl, message);
     } else {

@@ -6,12 +6,6 @@ const initFields = (message) => {
 
   fields.push({
       title: 'pick me!',
-      value: '0',
-      short: true
-  });
-
-  fields.push({
-      title: ' ',
       value: '',
       short: true
   });
@@ -31,15 +25,13 @@ const initFields = (message) => {
 }
 
 const addParticipate = (message, metion) => {
-  message.fields[0].value++;
-  message.fields[1].value += metion;
-  message.fields[2].value++;
+  message.fields[0].value += metion;
+  message.fields[1].value++;
 }
 
 const removeParticipate = (message, mention) => {
-  message.fields[0].value--;
-  message.fields[1].value = message.fields[1].value.replace(mention, '');
-  message.fields[2].value--;
+  message.fields[0].value = message.fields[1].value.replace(mention, '');
+  message.fields[1].value--;
 }
 
 const participate = (data, getUserMention) => {
@@ -51,8 +43,8 @@ const participate = (data, getUserMention) => {
   }
         
   const participateMessage = message.attachments[1];
-  
-  if (participateMessage.fields[1].value.includes(userMention)) {
+
+  if (participateMessage.fields[0].value.includes(userMention)) {
     removeParticipate(participateMessage, userMention);
   } else {
     addParticipate(participateMessage, userMention);
