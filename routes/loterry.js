@@ -92,12 +92,15 @@ const lottery = (req, res) => {
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
       message.attachments[1].text = getWinner(message.attachments[1].fields);
-      delete message.attachments[1]['fields']
+      message.attachments[1].fields = [{
+        title: 'Participants',
+        value: message.attachments[1].fields[0].value,
+        short: true
+      }]
       res.status(200).send(message);
       
       message.replaceOriginal = true;
       message.channelId = body.channel.id;
-      message.attachments.pop();
       message.attachments.push({
         text: messages.get('RESULT_DOWN_BELOW')
       });
