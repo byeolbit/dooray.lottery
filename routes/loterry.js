@@ -94,7 +94,7 @@ const lottery = (req, res) => {
       message.attachments.push({
         text: messages.get('RESULT_DOWN_BELOW')
       });
-      Api.webhook(body.responseUrl, message);
+      res.status(200).send(message);
 
       message.replaceOriginal = false;
       message.attachments.pop();
@@ -108,7 +108,7 @@ const lottery = (req, res) => {
         short: true
       }
       
-      return res.status(200).send(message);
+      return Api.webhook(body.responseUrl, message);
     } else {
       message.replaceOriginal = true;
       message.text = messages.get('CLOSE_VOTES', getUserMention(body));
