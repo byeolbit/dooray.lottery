@@ -88,6 +88,14 @@ const lottery = (req, res) => {
     message.attachments.pop();
     
     if (message.attachments[1] && message.attachments[1].fields) {
+
+      message.replaceOriginal = true;
+      message.channelId = body.channel.id;
+      message.attachments.push({
+        text: messages.get('RESULT_DOWN_BELOW')
+      });
+      Api.webhook(body.responseUrl, message);
+
       message.replaceOriginal = false;
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
@@ -98,15 +106,8 @@ const lottery = (req, res) => {
         value: participants,
         short: true
       }
-      res.status(200).send(message);
       
-      message.replaceOriginal = true;
-      message.channelId = body.channel.id;
-      message.attachments.pop();
-      message.attachments.push({
-        text: messages.get('RESULT_DOWN_BELOW')
-      });
-      return Api.webhook(body.responseUrl, message);
+      return res.status(200).send(message);
     } else {
       message.replaceOriginal = true;
       message.text = messages.get('CLOSE_VOTES', getUserMention(body));
