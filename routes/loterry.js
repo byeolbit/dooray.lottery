@@ -106,6 +106,15 @@ const lottery = (req, res) => {
         short: true
       }]
       
+<<<<<<< HEAD
+=======
+      message.replaceOriginal = true;
+      message.channelId = body.channel.id;
+      message.attachments.pop();
+      message.attachments.push({
+        text: messages.get('RESULT_DOWN_BELOW')
+      });
+>>>>>>> cf18daa1fa32ed242c88dbc203655658a93e257f
       return Api.webhook(body.responseUrl, message);
     } else {
       message.replaceOriginal = true;
