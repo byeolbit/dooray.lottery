@@ -88,33 +88,24 @@ const lottery = (req, res) => {
     message.attachments.pop();
     
     if (message.attachments[1] && message.attachments[1].fields) {
-      message.replaceOriginal = true;
-      message.channelId = body.channel.id;
-      message.attachments.pop();
-      message.attachments.push({
-        text: messages.get('RESULT_DOWN_BELOW')
-      });
-      res.status(200).send(message);
-
       message.replaceOriginal = false;
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
+      const participants = message.attachments[1].fields[0].value;
       message.attachments[1].text = getWinner(message.attachments[1].fields);
-      message.attachments[1].fields = [{
-        title: 'Participants',
-        value: message.attachments[1].fields[0].value,
+      message.attachments[1].fields[1] = {
+        title: messages.get('TOTAL'),
+        value: participants,
         short: true
-      }]
+      }
+      res.status(200).send(message);
       
-<<<<<<< HEAD
-=======
       message.replaceOriginal = true;
       message.channelId = body.channel.id;
       message.attachments.pop();
       message.attachments.push({
         text: messages.get('RESULT_DOWN_BELOW')
       });
->>>>>>> cf18daa1fa32ed242c88dbc203655658a93e257f
       return Api.webhook(body.responseUrl, message);
     } else {
       message.replaceOriginal = true;
