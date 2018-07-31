@@ -97,6 +97,7 @@ const lottery = (req, res) => {
       Api.webhook(body.responseUrl, message);
 
       message.replaceOriginal = false;
+      message.attachments.pop();
       message.text = messages.get('CLOSE', getUserMention(body));
       message.attachments[1].title = messages.get('WINNER');
       const participants = message.attachments[1].fields[0].value;
