@@ -93,7 +93,7 @@ const lottery = (req, res) => {
       message.attachments[1].title = messages.get('WINNER');
       const participants = message.attachments[1].fields[0].value;
       message.attachments[1].text = getWinner(message.attachments[1].fields);
-      message.attachments[1].fields[1] = {
+      message.attachments[1].fields[0] = {
         title: messages.get('TOTAL'),
         value: participants,
         short: true
